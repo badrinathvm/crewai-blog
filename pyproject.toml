@@ -1,0 +1,21 @@
+[project]
+name = "crewai-blog"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "crewai-tools>=0.45.0",
+    "fastapi>=0.115.12",
+]
+
+[project.scripts]
+blog_creator = "blog_creator.main:run"
+run_crew = "blog_creator.main:run"
+train = "blog_creator.main:train"
+replay = "blog_creator.main:replay"
+test = "blog_creator.main:test"
+
+
+[tool.crewai]
+type = "crew"

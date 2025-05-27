@@ -1,0 +1,15 @@
+write_content_task:
+  description: >
+    Write a blog post on the given {topic}. The post should be engaging, informative, and well-structured.
+    Use your creativity and writing skills to produce high-quality content that adheres to the provided guidelines.
+  expected_output: >
+    A well-written blog post that is informative, engaging, and tailored to the target audience.
+    The post should be free of grammatical errors and follow the provided structure.
+  agent: blog_writer
+
+generate_title_task:
+  description: >
+    Generate a title for the blog post on the given {topic}.
+  expected_output: >
+    A title for the blog post that is informative, engaging, and well-structured.
+  agent: title_generator
