@@ -9,22 +9,8 @@ Blog Generator leverages the CrewAI framework to generate blog content using FAS
 CrewAI simplifies the orchestration of role-playing AI agents. In VacAIgent, these agents collaboratively decide on cities and craft a complete itinerary for your trip based on specified preferences, all accessible via a streamlined Streamlit user interface.
 
 
-## Running the Application
-
-To experience the VacAIgent app:
-
-- **Configure Environment**: Set up the environment variables for [Browseless](https://www.browserless.io/), [Serper](https://serper.dev/), and [OpenAI](https://openai.com/). Use the `secrets.example` as a guide to add your keys then move that file (`secrets.toml`) to `.streamlit/secrets.toml`.
-
-- **Install Dependencies**: Execute `pip install -r requirements.txt` in your terminal.
-- **Launch the CLI Mode**: Run `python cli_app.py -o "Bangalore, India" -d "Krabi, Thailand" -s 2024-05-01 -e 2024-05-10 -i "2 adults who love swimming, dancing, hiking, shopping, food, water sports adventures, rock climbing"` to start the CLI Mode.
-- **Launch the FASTAPI**: Run `uvicorn api_app:app --reload` to start the FASTAPI server.
-- **Launch the Streamlit App**: Run `streamlit run streamlit_app.py` to start the Streamlit interface.
-
-★ **Disclaimer**: The application uses GEMINI by default. Ensure you have access to GEMINI's API and be aware of the associated costs.
-
 ## Details & Explanation
 
-- **Streamlit UI**: The Streamlit interface is implemented in `streamlit_app.py`, where users can input their trip details.
 - **Components**:
   - `./crew.py`: Contains agents and task leveraging crew decorators
 
