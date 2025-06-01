@@ -1,0 +1,33 @@
+{
+    "post": {
+      "text": "🚀 Excited to share the differences between LangGraph and CrewAI state management approaches! Dive into the GitHub links below for more insights: \n\n🛠 LangGraph: Ideal for complex pipelines with explicit state handling. \n🚀 CrewAI: Perfect for rapid prototyping with implicit state management. \n\n#AI #StateManagement #LangGraph #CrewAI",
+      "images": [
+        {
+          "url": "https://example.com/image1.jpg",
+          "description": "LangGraph pipeline diagram"
+        },
+        {
+          "url": "https://example.com/image2.jpg",
+          "description": "CrewAI Flows overview"
+        }
+      ],
+      "links": [
+        {
+          "platform": "GitHub",
+          "url": "https://github.com/example/LangGraph",
+          "description": "LangGraph Repository"
+        },
+        {
+          "platform": "GitHub",
+          "url": "https://github.com/example/CrewAI",
+          "description": "CrewAI Repository"
+        }
+      ],
+      "hashtags": [
+        "#AI",
+        "#StateManagement",
+        "#LangGraph",
+        "#CrewAI"
+      ]
+    }
+  }
