@@ -61,16 +61,16 @@ async def write_post(request: BlogRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     
-    
+# JSON Crew Agent Implementation
 class SummarizeRequest(BaseModel):
-    type: str = Field(..., description="contains the type mentioned")
+    question: str = Field(..., description="questions to be answered")
     
 class JSONAgent:
-    def run(self):
+    def run(self, question: str):
         try:
             file_path = "src/blog_creator/mock.json"
             data = read_json(file_path)
-            inputs={'json_content': data}
+            inputs={'json_content': data, 'questions': question}
             result = JsonCrew().crew().kickoff(inputs=inputs)
             return result.raw
         except Exception as e:
@@ -83,7 +83,7 @@ async def summarize(request: SummarizeRequest):
     """
     try:
         crew = JSONAgent()
-        result = crew.run()
+        result = crew.run(question=request.question)
         return {"content": result}
     except HTTPException as e:
         raise e

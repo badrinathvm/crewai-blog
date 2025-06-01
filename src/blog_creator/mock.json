@@ -21,7 +21,12 @@
           "platform": "GitHub",
           "url": "https://github.com/example/CrewAI",
           "description": "CrewAI Repository"
-        }
+        },
+        {
+            "platform": null,
+            "url": null,
+            "description": "Dummy repository"
+          }
       ],
       "hashtags": [
         "#AI",
