@@ -8,8 +8,8 @@ load_dotenv()
 @CrewBase
 class JsonCrew():
     def __init__(self):
-        os.environ["G"] = "http://127.0.0.1:11434"
-        # self.llm = LLM(model="ollama/llama3.2:latest", base_url="http://127.0.0.1:11434")
+        #os.environ["G"] = "http://127.0.0.1:11434"
+        self.llm = LLM(model="ollama/llama3.2:latest", base_url="http://127.0.0.1:11434")
         
     agents_config = 'config/json_agents.yaml'
     tasks_config = 'config/json_tasks.yaml'
