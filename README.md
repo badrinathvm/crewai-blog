@@ -67,7 +67,7 @@ This project demonstrates different approaches to connecting and debugging MCP (
 
 The project exposes a `/weather` endpoint that supports multiple connection types:
 
-```http
+```bash
 POST curl --location 'http://127.0.0.1:8001/weather' \
 --header 'Content-Type: application/json' \
 --data '{
