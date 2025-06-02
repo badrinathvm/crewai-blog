@@ -12,8 +12,8 @@ class JsonCrew():
         os.environ["GROQ_API_KEY"] = os.getenv("GROQ_API_KEY")
         os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
         #self.llm = LLM(model="groq/qwen-qwq-32b")
-        #self.llm = LLM(model="ollama/llama3.2:latest", base_url="http://127.0.0.1:11434")
-        self.llm = LLM(model="gpt-4o-mini")
+        self.llm = LLM(model="ollama/llama3.2:latest", base_url="http://127.0.0.1:11434")
+        #self.llm = LLM(model="gpt-4o-mini")
         
     agents_config = 'config/json_agents.yaml'
     tasks_config = 'config/json_tasks.yaml'

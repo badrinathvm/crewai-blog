@@ -1,31 +1,31 @@
-# generate_summary_task:
-#   description: >
-#     Generate a summary of the {json_content} based on the {questions}.
-#   expected_output: >
-#     A summary of the content of the JSON file based on the {questions}.
-#   agent: json_reader
-
 generate_summary_task:
   description: >
-    Analyze the provided {json_content} to generate comprehensive summaries and provide 
-    detailed answers to any questions in {questions}. This task handles both structured 
-    summarization and dynamic question-answering based on the JSON data, extracting 
-    relevant insights, patterns, and specific information. The agent will process various 
-    question types including factual queries, analytical requests, actionable insights, 
-    and comparative analysis while maintaining context awareness and data integrity.
+    Generate a summary of the {json_content} based on the {questions}.
   expected_output: >
-    A comprehensive, well-structured analysis document containing:
-    **Executive Summary**: High-level overview of JSON content with key findings and main themes
-    **Question Responses**: Direct, detailed answers to each question in {questions} with supporting 
-    data and evidence from the JSON content
-    **Data Insights**: Notable patterns, trends, relationships, or anomalies discovered within 
-    the JSON structure and content
-    **Actionable Recommendations**: Specific actions, next steps, or opportunities identified 
-    based on the analysis
-    **Technical Analysis**: Data quality assessment, structure observations, and any processing 
-    notes or limitations encountered
-    The output will be formatted in clear markdown with proper hierarchy, ensuring all questions 
-    are directly addressed with comprehensive answers. If any questions cannot be answered from 
-    the available JSON data, limitations will be clearly stated with suggestions for additional 
-    information needed.
+    A comprehensive, well structured analysis of the {json_content}
   agent: json_reader
+
+# generate_summary_task:
+#   description: >
+#     Analyze the provided {json_content} to generate comprehensive summaries and provide 
+#     detailed answers to any questions in {questions}. This task handles both structured 
+#     summarization and dynamic question-answering based on the JSON data, extracting 
+#     relevant insights, patterns, and specific information. The agent will process various 
+#     question types including factual queries, analytical requests, actionable insights, 
+#     and comparative analysis while maintaining context awareness and data integrity.
+#   expected_output: >
+#     A comprehensive, well-structured analysis document containing:
+#     **Executive Summary**: High-level overview of JSON content with key findings and main themes
+#     **Question Responses**: Direct, detailed answers to each question in {questions} with supporting 
+#     data and evidence from the JSON content
+#     **Data Insights**: Notable patterns, trends, relationships, or anomalies discovered within 
+#     the JSON structure and content
+#     **Actionable Recommendations**: Specific actions, next steps, or opportunities identified 
+#     based on the analysis
+#     **Technical Analysis**: Data quality assessment, structure observations, and any processing 
+#     notes or limitations encountered
+#     The output will be formatted in clear markdown with proper hierarchy, ensuring all questions 
+#     are directly addressed with comprehensive answers. If any questions cannot be answered from 
+#     the available JSON data, limitations will be clearly stated with suggestions for additional 
+#     information needed.
+#   agent: json_reader

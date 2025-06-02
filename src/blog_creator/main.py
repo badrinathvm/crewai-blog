@@ -8,6 +8,15 @@ from crewai.project import CrewBase, agent, task, crew
 from src.blog_creator.crew import BlogCrew
 from src.blog_creator.json_crew import JsonCrew
 import json
+from src.blog_creator.agents.json_agent import JSONAgent, SummarizeRequest
+from src.blog_creator.server.weather_streamable_http import MCPStreamableTTPClientManager
+from src.blog_creator.server.weather_sse import MCPSSEClientManager
+from fastmcp.client.transports import StreamableHttpTransport
+from fastmcp import Client
+from mcp_use import MCPAgent, MCPClient
+from pathlib import Path
+from dotenv import load_dotenv
+from langchain_groq import ChatGroq
 
 app = FastAPI(
     title="Blog Crew API",
@@ -61,21 +70,6 @@ async def write_post(request: BlogRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     
-# JSON Crew Agent Implementation
-class SummarizeRequest(BaseModel):
-    question: str = Field(..., description="questions to be answered")
-    
-class JSONAgent:
-    def run(self, question: str):
-        try:
-            file_path = "src/blog_creator/mock.json"
-            data = read_json(file_path)
-            inputs={'json_content': data, 'questions': question}
-            result = JsonCrew().crew().kickoff(inputs=inputs)
-            return result.raw
-        except Exception as e:
-            raise HTTPException(status_code=500, detail=str(e))
-    
 @app.post("/summarize")
 async def summarize(request: SummarizeRequest):
     """
@@ -89,22 +83,54 @@ async def summarize(request: SummarizeRequest):
         raise e
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
 
 
-def read_json(file_path):
+class WeatherRequest(BaseModel):
+    type: str = Field(..., description="Type of the mcp connection either sse or streamable-http")
+    state: str = Field(..., description="Provide the state for eg: CA")
+    
+
+@app.post("/weather")
+async def get_weather(request: WeatherRequest):
+    """List available MCP tools"""
     try:
-        with open(file_path, 'r') as file:
-            data = json.load(file)
-            return data
-    except FileNotFoundError:
-        print(f"Error: The file '{file_path}' was not found.")
-    except json.JSONDecodeError:
-        print(f"Error: Failed to decode JSON in the file '{file_path}'.")
-    return None
+        if request.type == "streamable-http":
+            mcp_streamable_http_client = MCPStreamableTTPClientManager()
+            tools = await mcp_streamable_http_client.list_tools()
+            result = await mcp_streamable_http_client.call_tool(state=request.state)
+            return {
+                "tools": tools,
+                "result": result
+            }
+        elif request.type == "sse":
+            mcp_sse_client = MCPSSEClientManager()
+            tools = await mcp_sse_client.list_tools()
+            result = await mcp_sse_client.call_tool(state=request.state)
+            return {
+                "tools": tools,
+                "result": result
+            }
+        elif request.type == "config":
+            load_dotenv()
+            current_dir = Path(__file__).parent
+            # IF we want to debug mcp server use weather_debug.json , make sure to run the weather_sse file in debug mode.
+            # However if we use weather.json a seeprate process will be triggered wont be able to debug
+            config_file = current_dir / "config" / "weather.json"
+            client = MCPClient.from_config_file(config_file)
+            llm = ChatGroq(model="qwen-qwq-32b")
+            
+            agent = MCPAgent(llm=llm, client=client,  max_steps=15, memory_enabled=True)
+            result = await agent.run(request.state)
+            return {
+                "result": result
+            }
+    except Exception as e:
+        raise e
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("src.blog_creator.main:app", host="0.0.0.0", port=8002)
+    uvicorn.run("src.blog_creator.main:app", host="0.0.0.0", port=8001)
 
 # To run the server, use the command:
 # uvicorn main:app --host 0.0.0.0 --port 8002 --reload

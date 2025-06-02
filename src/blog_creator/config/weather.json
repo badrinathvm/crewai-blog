@@ -1,0 +1,15 @@
+{
+    "mcpServers": {
+      "weather1": {
+        "command": "/Users/ranibadri/.local/bin/uv",
+        "args": [
+          "run",
+          "--with",
+          "mcp[cli]",
+          "mcp",
+          "run",
+          "/Users/ranibadri/Documents/projects/crewai-blog/src/blog_creator/server/weather_sse.py"
+        ]
+      }
+    }
+  }
